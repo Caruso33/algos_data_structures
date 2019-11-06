@@ -32,17 +32,86 @@ class Graph {
         v => v !== vertex1
       );
   }
+
+  traverseRecursiveDepthFirstGraph(startingVertex) {
+    const result = [];
+    const visitedVertices = {};
+
+    const recursion = vertex => {
+      if (!vertex) return null;
+
+      result.push(vertex);
+      visitedVertices[vertex] = true;
+
+      this.adjacencyList[vertex].forEach(
+        neighbor => !visitedVertices[neighbor] && recursion(neighbor)
+      );
+    };
+    recursion(startingVertex);
+
+    return result;
+  }
+
+  traverseIterativeDepthFirstGraph(startingVertex) {
+    const result = [];
+    const visitedVertices = { [startingVertex]: true };
+    const stack = [startingVertex];
+    let currentVertex;
+
+    while (stack.length) {
+      currentVertex = stack.pop();
+      result.push(currentVertex);
+
+      this.adjacencyList[currentVertex].forEach(neighbor => {
+        if (!visitedVertices[neighbor]) {
+          visitedVertices[neighbor] = true;
+          stack.push(neighbor);
+        }
+      });
+    }
+
+    return result;
+  }
+
+  traverseRecursiveBreadthFirstGraph(startingVertex) {
+    const result = [];
+    const visitedVertices = { [startingVertex]: true };
+    const queue = [startingVertex];
+
+    let currentVertex;
+    while (queue.length) {
+      currentVertex = queue.shift();
+      result.push(currentVertex);
+
+      this.adjacencyList[currentVertex].forEach(neighbor => {
+        if (!visitedVertices[neighbor]) {
+          visitedVertices[neighbor] = true;
+          queue.push(neighbor);
+        }
+      });
+    }
+
+    return result;
+  }
 }
+
 const g = new Graph();
 
-g.addVertex("Michael");
-g.addVertex("Adam");
-g.addVertex("Eve");
+// g.addVertex("A");
+// g.addVertex("B");
+// g.addVertex("C");
+// g.addVertex("D");
+// g.addVertex("E");
+// g.addVertex("F");
 
-g.addEdge("Michael", "Adam");
+// g.addEdge("A", "B");
+// g.addEdge("A", "C");
+// g.addEdge("B", "D");
+// g.addEdge("C", "E");
+// g.addEdge("D", "E");
+// g.addEdge("D", "F");
+// g.addEdge("F", "F");
 
-g.removeEdge("Adam", "Michael");
-
-console.log("g", g);
+// console.log("g", g.traverseRecursiveBreadthFirstGraph("A"));
 
 module.exports = Graph;
