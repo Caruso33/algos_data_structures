@@ -95,15 +95,16 @@ class WeightedGraph {
   }
 }
 
-// const g = new WeightedGraph();
 
+// const g = new WeightedGraph();
 // g.addVertex("A");
 // g.addVertex("B");
 // g.addVertex("C");
 // g.addVertex("D");
 // g.addVertex("E");
 // g.addVertex("F");
-// // g.addVertex("G");
+// g.addVertex("G");
+// g.addVertex("H");
 
 // g.addEdge("A", "B", 4);
 // g.addEdge("A", "C", 2);
@@ -113,6 +114,7 @@ class WeightedGraph {
 // g.addEdge("D", "E", 3);
 // g.addEdge("D", "F", 1);
 // g.addEdge("E", "F", 1);
+// g.addEdge("G", "H", 1);
 
 // console.log("g", g.dijkstra("A", "G"));
 

@@ -30,7 +30,7 @@ test("graph adds edges", () => {
   });
 });
 
-test("graph return shortest path", () => {
+test("graph returns shortest path", () => {
   g.addVertex("A");
   g.addVertex("B");
   g.addVertex("C");
@@ -47,8 +47,9 @@ test("graph return shortest path", () => {
   g.addEdge("D", "F", 1);
   g.addEdge("E", "F", 1);
 
-  const dijkstra = g.dijkstra("A");
+  let dijkstra = g.dijkstra("A", "F");
+  expect(dijkstra).toEqual(["A", "C", "D", "F"]);
 
-  return undefined
-  expect(dijkstra).toEqual(["A", "B", "D", "E", "C", "F"]);
+  dijkstra = g.dijkstra("A", "E");
+  expect(dijkstra).toEqual(["A", "C", "D", "F", "E"]);
 });
