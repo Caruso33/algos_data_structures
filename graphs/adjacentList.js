@@ -95,7 +95,7 @@ class Graph {
   }
 }
 
-const g = new Graph();
+// const g = new Graph();
 
 // g.addVertex("A");
 // g.addVertex("B");

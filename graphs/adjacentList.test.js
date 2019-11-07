@@ -1,5 +1,5 @@
 const Graph = require("./adjacentList.js");
-console.log("Graph", Graph);
+
 let g;
 
 beforeEach(() => {
