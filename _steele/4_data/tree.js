@@ -131,7 +131,6 @@ class BinarySearchTree {
     traverse(this.root);
 
     return data;
-    S;
   }
 
   print() {
