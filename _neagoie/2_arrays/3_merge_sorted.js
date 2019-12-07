@@ -24,9 +24,9 @@ function mergeSortedArrays3(arr1, arr2) {
   const result = [];
 
   let arr1Pointer = 0,
-    arr2Pointer = 0;
-  arr1Item = arr1[arr1Pointer];
-  arr2Item = arr2[arr2Pointer];
+    arr2Pointer = 0,
+    arr1Item = arr1[arr1Pointer],
+    arr2Item = arr2[arr2Pointer];
 
   if (arr1Item.length === 0) return arr2;
   if (arr2Item.length === 0) return arr1;
