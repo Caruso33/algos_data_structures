@@ -108,7 +108,7 @@ describe('RemoveLast', () => {
   test('RemoveLast removes the last node when list is length 1', () => {
     const l = new List();
     l.insertFirst('a');
-    l.removeLast();
+    expect(l.removeLast().data).toEqual('a')
     expect(l.head).toEqual(null);
   });
 

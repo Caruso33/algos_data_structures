@@ -21,12 +21,52 @@ class Node {
   }
 
   remove(data) {
-    this.children = this.children.filter(node => {
-      return node.data !== data;
-    });
+    return (this.children = this.children.filter(child => child.data !== data));
   }
 }
 
-class Tree {}
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+
+  traverseBF(cb) {
+    const queue = [this.root],
+      nodes = [];
+    let element = null;
+
+    while (queue.length) {
+      element = queue.shift();
+
+      nodes.push(element.value);
+      cb(element);
+
+      if (element.children.length)
+        element.children.forEach(child => {
+          queue.push(child);
+        });
+    }
+
+    return nodes;
+  }
+
+  traverseDF(cb) {
+    const nodes = [];
+
+    function traverse(node) {
+      nodes.push(node);
+      cb(node);
+
+      if (node.children.length) {
+        node.children.forEach(child => {
+          traverse(child);
+        });
+      }
+    }
+    traverse(this.root);
+
+    return nodes;
+  }
+}
 
 module.exports = { Tree, Node };
