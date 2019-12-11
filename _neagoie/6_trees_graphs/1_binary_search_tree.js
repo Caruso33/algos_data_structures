@@ -98,23 +98,121 @@ class BinarySearchTree {
 
     return newNode;
   }
+
+  _invalidate(val) {
+    // to test validate function
+    const node = new Node(val);
+
+    const right = this.root.right;
+    const left = this.root.left;
+
+    if (right.val > val) {
+      node.left = left.left;
+      node.right = left.right;
+      this.root.left = node;
+    } else {
+      node.left = right.left;
+      node.right = right.right;
+      this.root.right = node;
+    }
+  }
+
+  bfs() {
+    // shortest path, closer nodes <> more memory
+    let element = this.root;
+    let nodes = [];
+    let queue = [element];
+
+    while (queue.length) {
+      element = queue.shift();
+
+      nodes.push(element.val);
+
+      if (element.left) queue.push(element.left);
+      if (element.right) queue.push(element.right);
+    }
+
+    return nodes;
+  }
+
+  bfsRecursive(queue, nodes) {
+    if (!queue.length) return nodes;
+
+    const element = queue.shift();
+
+    nodes.push(element.val);
+
+    if (element.left) queue.push(element.left);
+    if (element.right) queue.push(element.right);
+
+    return this.bfsRecursive(queue, nodes);
+  }
+
+  dfsIterative() {
+    let element = this.root;
+    const nodes = [],
+      stack = [];
+
+    while (true) {
+      if (element) {
+        stack.push(element);
+        nodes.push(element.val);
+
+        element = element.left;
+      } else if (stack.length) {
+        element = stack.pop();
+
+        element = element.right;
+      } else break;
+    }
+
+    return nodes;
+  }
+
+  dfs() {
+    // less memory, does path exist <> slower
+    const nodes = [];
+
+    function traverse(node) {
+      nodes.push(node.val);
+
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+
+    traverse(this.root);
+
+    return nodes;
+  }
+
+  validate(node, min = null, max = null) {
+    if (max !== null && node.val > max) return false;
+
+    if (min !== null && node.val < min) return false;
+
+    if (node.left && !this.validate(node.left, min, node.val)) return false;
+
+    if (node.right && !this.validate(node.right, node.val, max)) return false;
+
+    return true;
+  }
 }
 
-// const bst = new BinarySearchTree();
+const bst = new BinarySearchTree();
 
-// bst.insert(9);
-// bst.insert(4);
-// bst.insert(6);
-// bst.insert(5);
-// bst.insert(20);
-// bst.insert(170);
-// bst.insert(15);
-// bst.insert(1);
+bst.insert(9);
+bst.insert(4);
+bst.insert(6);
+bst.insert(5);
+bst.insert(20);
+bst.insert(170);
+bst.insert(15);
+bst.insert(1);
 
 // //           9
 // //      4       20
 // //    1   6   15  170
-// //       5
+// //      (5)
 // console.log(bst.lookup(9));
 // console.log(JSON.stringify(bst, undefined, 2));
 
@@ -122,3 +220,15 @@ class BinarySearchTree {
 // console.log(JSON.stringify(bst, undefined, 2));
 
 // console.log(bst.traverse(bst.root));
+
+console.log(bst.bfs());
+console.log(bst.bfsRecursive([bst.root], []));
+console.log(bst.dfs());
+console.log(bst.dfsIterative());
+
+// inorder   -> [1, 4, 6, 9, 15, 20, 170]
+// preorder  -> [9, 4, 1, 6, 20, 15, 170]
+// postorder -> [1, 6, 4, 15, 170, 20, 9]
+
+bst._invalidate(10);
+console.log(bst.validate(bst.root));

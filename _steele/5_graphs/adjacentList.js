@@ -73,7 +73,7 @@ class Graph {
     return result;
   }
 
-  traverseRecursiveBreadthFirstGraph(startingVertex) {
+  traverseIterativeBreadthFirstGraph(startingVertex) {
     const result = [];
     const visitedVertices = { [startingVertex]: true };
     const queue = [startingVertex];
@@ -112,6 +112,6 @@ class Graph {
 // g.addEdge("D", "F");
 // g.addEdge("F", "F");
 
-// console.log("g", g.traverseRecursiveBreadthFirstGraph("A"));
+// console.log("g", g.traverseIterativeBreadthFirstGraph("A"));
 
 module.exports = Graph;

@@ -10,10 +10,10 @@
 
 #### Quadratic Algos
 
-| Algo      | Time (Best) | Time (Avg) | Time (Worst) | Space | Comment                  |
-| --------- | ----------- | ---------- | ------------ | ----- | ------------------------ |
+| Algo      | Time (Best) | Time (Avg) | Time (Worst) | Space | Comment                                   |
+| --------- | ----------- | ---------- | ------------ | ----- | ----------------------------------------- |
 | Bubble    | O(n)        | O(n^2)     | O(n^2)       | O(1)  |
-| Insertion | O(n)        | O(n^2)     | O(n^2)       | O(1)  | Good for streaming input |
+| Insertion | O(n)        | O(n^2)     | O(n^2)       | O(1)  | Good for streaming input or almost sorted |
 | Selection | O(n^2)      | O(n^2)     | O(n^2)       | O(1)  |
 
 #### Improved Algos

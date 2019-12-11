@@ -28,6 +28,46 @@ class Graph {
     }
   }
 
+  bfs(startingVertex) {
+    const result = [];
+    const visitedVertices = { [startingVertex]: true };
+    const queue = [startingVertex];
+
+    let currentVertex;
+    while (queue.length) {
+      currentVertex = queue.shift();
+      result.push(currentVertex);
+
+      this.adjacentList[currentVertex].forEach(neighbor => {
+        if (!visitedVertices[neighbor]) {
+          visitedVertices[neighbor] = true;
+          queue.push(neighbor);
+        }
+      });
+    }
+
+    return result;
+  }
+
+  dfs(startingVertex) {
+    const result = [];
+    const visitedVertices = {};
+
+    const recursion = vertex => {
+      if (vertex === undefined) return null;
+
+      result.push(vertex);
+      visitedVertices[vertex] = true;
+
+      this.adjacentList[vertex].forEach(
+        neighbor => !visitedVertices[neighbor] && recursion(neighbor)
+      );
+    };
+    recursion(startingVertex);
+
+    return result;
+  }
+
   showConnections() {
     for (const node of Object.keys(this.adjacentList)) {
       let connections = [];
@@ -39,38 +79,30 @@ class Graph {
   }
 }
 
-// const graph = new Graph();
+const graph = new Graph();
 
-// graph.addVertex(0);
-// graph.addVertex(1);
-// graph.addVertex(2);
-// graph.addVertex(3);
-// graph.addVertex(4);
-// graph.addVertex(5);
-// graph.addVertex(6);
+graph.addVertex(0);
+graph.addVertex(1);
+graph.addVertex(2);
+graph.addVertex(3);
+graph.addVertex(4);
+graph.addVertex(5);
+graph.addVertex(6);
 
-// graph.addEdge(0, 1);
-// graph.addEdge(1, 0);
-// graph.addEdge(0, 2);
-// graph.addEdge(2, 0);
+graph.addEdge(0, 1);
+graph.addEdge(0, 2);
+graph.addEdge(1, 3);
+graph.addEdge(1, 2);
 
-// graph.addEdge(1, 3);
-// graph.addEdge(3, 1);
-// graph.addEdge(1, 2);
-// graph.addEdge(2, 1);
-
-// graph.addEdge(2, 4);
-// graph.addEdge(4, 2);
-// graph.addEdge(3, 4);
-// graph.addEdge(4, 3);
-
-// graph.addEdge(4, 5);
-// graph.addEdge(5, 4);
-
-// graph.addEdge(5, 6);
-// graph.addEdge(6, 5);
+graph.addEdge(2, 4);
+graph.addEdge(3, 4);
+graph.addEdge(4, 5);
+graph.addEdge(5, 6);
 
 // graph.addVertex(6);
 // console.log(JSON.stringify(graph, undefined, 2));
 
 // graph.showConnections();
+
+console.log(graph.bfs(0));
+console.log(graph.dfs(0));
